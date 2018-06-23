@@ -37,8 +37,10 @@ En primer lugar, cada integrante del equipo trabajó individualmente y planteó 
 
 #### Sketch de la solución (prototipo de baja fidelidad)
 ![sketch final dashboard](https://user-images.githubusercontent.com/39053734/41178829-dd342274-6b3e-11e8-96de-82289f03ac70.jpg)
-![sketch final dashboard](https://user-images.githubusercontent.com/39053734/41178829-dd342274-6b3e-11e8-96de-82289f03ac70.jpg)
 ![skecht final dashboard 2](https://user-images.githubusercontent.com/39053734/41180840-06b09446-6b46-11e8-803b-04f61a660b5a.jpg)
+![skechtdashboard](https://user-images.githubusercontent.com/39053734/41812934-90fd3c40-7702-11e8-9e69-8173260ff8c7.jpg)
+![skechtdashboard2](https://user-images.githubusercontent.com/39053734/41812935-91205bc6-7702-11e8-9a54-d75bad572392.jpg)
+![skechtdashboard3](https://user-images.githubusercontent.com/39053734/41812933-90da195e-7702-11e8-9130-0d03745f7578.jpg)
  
 #### Diseño de la Interfaz de Usuario (prototipo de alta fidelidad)
 
