@@ -1,33 +1,51 @@
 window.onload = function() {
-  requiereJson();
+  requiereCohorts();
 };
-async function requiereJson() {
+// llamamos los cohorts
+async function requiereCohorts() {
+  let cohorts = '';
   try {
-    const jsonUsers = await fetch('https://estephanyc.github.io/scl-2018-05-bc-core-pm-datadashboard/data/cohorts/lim-2018-03-pre-core-pw/users.json');
-    const users = await jsonUsers.json();
-    const jsonProgress = await fetch('https://estephanyc.github.io/scl-2018-05-bc-core-pm-datadashboard/data/cohorts/lim-2018-03-pre-core-pw/progress.json');
-    const progress = await jsonProgress.json();
-    const jsonCohorts = await fetch('https://estephanyc.github.io/scl-2018-05-bc-core-pm-datadashboard/data/cohorts.json');
-    const cohorts = await jsonCohorts.json();
-
-    showCohortsList(cohorts);
-    inputChange(users, progress, cohorts);
+    const jsonCohorts = await fetch('https://laboratoria-la-staging.firebaseapp.com/cohorts/');
+    cohorts = await jsonCohorts.json();
   } catch (err) {
     alert('no se pudierón cargar los datos' + err);
   }
+  inputChange(cohorts);
 }
-inputChange = (users, progress, cohorts) => {
-  let searchString = '';
-  let findCohort = '';
-  let filter = '';
-  let direcction = '';
+inputChange = (cohorts) => {
+  // mostrar la lista de cohorts
+  const cohortsId = cohorts.map(cohort => cohort.id);
+  const cohortList = document.getElementById('cohortsInput');
+  cohortsId.forEach(function(item) {
+    const option = document.createElement('option');
+    option.innerText = item;
+    cohortList.appendChild(option);
+  });
 
+  let searchString = '', findCohort = '', filter = '', direcction = '', users = '', progress = '';
+  
   // Escuchar eventos del dom y llamar la funcion cada vez que se cambie el filtro
-  document.getElementById('cohortsInput').addEventListener('change', function() {
+  document.getElementById('cohortsInput').addEventListener('change', async function() {
+    // mostrar los elementos de la pagina cuando un cohort es seleccionado
     document.getElementById('filter-Students').classList.add('visibility');
     document.getElementById('stats').classList.add('visibility');
+
+    // guardar el cohort seleccionado
     let cohortSelect = document.getElementById('cohortsInput').value;
     findCohort = cohorts.find(item => item.id === cohortSelect);
+    let finCohortId = findCohort.id;
+
+    // Buscar los usuarios del cohort seleccionado
+    try {
+      let jsonUsers = await fetch(`https://laboratoria-la-staging.firebaseapp.com/cohorts/${finCohortId}/users`);
+      users = await jsonUsers.json();
+      users = users.filter(element => element.role === 'student');
+      // buscar el progreso de usuarios del cohort seleccionado
+      let jsonProgress = await fetch(`https://laboratoria-la-staging.firebaseapp.com/cohorts/${finCohortId}/progress`);
+      progress = await jsonProgress.json();
+    } catch (err) {
+      alert('no se pudierón cargar los datos' + err);
+    }
     printData(processCohortData(createObjectOptions()));
   });
   document.getElementById('searchButtom').addEventListener('click', function() {
@@ -56,21 +74,13 @@ inputChange = (users, progress, cohorts) => {
   };
 };
 
-showCohortsList = (cohorts) => {
-  const cohortsId = cohorts.map(cohort => cohort.id);
-  const cohortList = document.getElementById('cohortsInput');
-  cohortsId.forEach(function(item) {
-    const option = document.createElement('option');
-    option.innerText = item;
-    cohortList.appendChild(option);
-  });
-};
 printData = (users) => {
+  // cada vez que se llame a la función limpiar la pantalla
   document.getElementById('students').innerText = '';
 
   // Variables de estadisticas de cohort en general
   let completitudTotalSum = 0, percentLecturasSum = 0,
-    percentQuizzSum = 0, percentExercisesSum = 0;
+    percentQuizzSum = 0, percentExercisesSum = 0; completitudTotalUser = 0;
   
   for (let i = 0; i < users.length; i++) {
     const userList = document.getElementById('students');
@@ -83,9 +93,10 @@ printData = (users) => {
     } else {
       newStudent.classList.add('studentTwo');
     }
+    completitudTotalUser = Math.round((users[i].stats.exercises.percent + users[i].stats.reads.percent + users[i].stats.quizzes.percent) / 3);
     userList.appendChild(newStudent);
     createElement(newStudent, 'h4', users[i].name, 'col-md-2');
-    createElement(newStudent, 'h4', users[i].stats.percent + ' % ', 'col-md-2');
+    createElement(newStudent, 'h4', completitudTotalUser + ' % ', 'col-md-2');
     createElement(newStudent, 'h4', users[i].stats.exercises.percent + ' % ', 'col-md-2');
     createElement(newStudent, 'h4', users[i].stats.quizzes.scoreAvg, 'col-md-2');
     createElement(newStudent, 'h4', users[i].stats.quizzes.percent + ' % ', 'col-md-2');
@@ -102,7 +113,7 @@ printData = (users) => {
       newElement.classList.add('col-2');
       parent.appendChild(newElement);
     }
-    completitudTotalSum += users[i].stats.percent;
+    completitudTotalSum += completitudTotalUser ;
     percentLecturasSum += users[i].stats.reads.percent;
     percentQuizzSum += users[i].stats.quizzes.percent;
     percentExercisesSum += users[i].stats.exercises.percent;
@@ -113,19 +124,9 @@ printData = (users) => {
     percentLecturas = Math.round(percentLecturasSum / users.length),
     percentQuizzes = Math.round(percentQuizzSum / users.length),
     percentExercises = Math.round(percentExercisesSum / users.length) ;
-
-  let totalSpan = document.getElementById('total');
-  totalSpan.innerText = completitudTotal + ' % ';
-
-  let lecturasSpan = document.getElementById('lecturas');
-  lecturasSpan.innerText = percentLecturas + ' % ';
-
-  let quizzesSpan = document.getElementById('quizzes');
-  quizzesSpan.innerText = percentQuizzes + ' % ';
-
-  let exercisesSpan = document.getElementById('ejercicios');
-  exercisesSpan.innerText = percentExercises + ' % ';
-
-  let prueba = 100 / users.length;
-  console.log(prueba * completitudTotalSum);
+    
+  document.getElementById('total').innerText = completitudTotal + ' % ';
+  document.getElementById('lecturas').innerText = percentLecturas + ' % ';
+  document.getElementById('quizzes').innerText = percentQuizzes + ' % ';
+  document.getElementById('ejercicios').innerText = percentExercises + ' % ';
 };
