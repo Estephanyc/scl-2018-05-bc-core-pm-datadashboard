@@ -36,19 +36,21 @@ El producto resuelve los problemas de nuestro usuario porque está pensado para 
 En primer lugar, cada integrante del equipo trabajó individualmente y planteó un **sketch** del proyecto. Posteriormente se hizo un **peer review** para exponer cada visión de la interfaz del sitio, y se creó un **nuevo sketch (prototipo de baja fidelidad)** a partir de las soluciones más óptimas y factibles considerando las especificaciones del usuario en cuanto al diseño y su experiencia con este producto.
 
 #### Sketch de la solución (prototipo de baja fidelidad)
-![sketch final dashboard](https://user-images.githubusercontent.com/39053734/41178829-dd342274-6b3e-11e8-96de-82289f03ac70.jpg)
-![sketch final dashboard](https://user-images.githubusercontent.com/39053734/41178829-dd342274-6b3e-11e8-96de-82289f03ac70.jpg)
-![skecht final dashboard 2](https://user-images.githubusercontent.com/39053734/41180840-06b09446-6b46-11e8-803b-04f61a660b5a.jpg)
+![skechtdashboard](https://user-images.githubusercontent.com/39053734/41812934-90fd3c40-7702-11e8-9e69-8173260ff8c7.jpg)
+![skechtdashboard2](https://user-images.githubusercontent.com/39053734/41812935-91205bc6-7702-11e8-9a54-d75bad572392.jpg)
+![skechtdashboard3](https://user-images.githubusercontent.com/39053734/41812933-90da195e-7702-11e8-9130-0d03745f7578.jpg)
  
 #### Diseño de la Interfaz de Usuario (prototipo de alta fidelidad)
 
- El sketch anterior se pasó a un **prototipo de alta fidelidad** para definir el estilo completo antes de empezar a trabajar directamente con el html y css del proyecto.
+El sketch anterior se pasó a un **prototipo de alta fidelidad** para definir el estilo completo antes de empezar a trabajar directamente con el html y css del proyecto. Sin embargo, debido a factibilidades técnicas, hubieron variaciones en nuestros prototipos. A continuacion, las modificaciones de éstos.
 > 
-- **Desktop** [Prototipo de alta fidelidad desktop](https://www.figma.com/file/YmabpXXPzkEybU2GKnmokm65/Data).
+- **Desktop** [Prototipo de alta fidelidad desktop](https://marvelapp.com/3hff1bh).
+- **Desktop** [Prototipo de alta fidelidad desktop nuevo](https://marvelapp.com/4c43303)
 
-- **Movil** [Prototipo de alta fidelidad movil](https://www.figma.com/file/Bfgp5x9Cak2Fjwd3brofLACU/PROYECTO-DASHBOARD)
+- **Movil** [Prototipo de alta fidelidad movil](https://marvelapp.com/3j0904d/screen/44705723)
+- **Movil** [Prototipo de alta fidelidad movil nuevo](https://marvelapp.com/4c43571/screen/44713164)
 
 # Autoras
-- Estephany Carvajal - Trabajo Inicial
-- Eva Astudillo - colaboradoras
-- Karina Smoje - colaboradoras
+- Estephany Carvajal
+- Eva Astudillo
+- Karina Smoje
